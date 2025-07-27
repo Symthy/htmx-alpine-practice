@@ -326,14 +326,27 @@ const server = http.createServer(async (req, res) => {
       const hasMore = offset + maxLimit < 151;
       const nextButton = hasMore
         ? `
-        <button class="btn btn-primary btn-block" 
-                hx-get="/api/pokemon?page=${page + 1}" 
-                hx-target="#pokemon-grid" 
-                hx-swap="beforeend">
-          もっと見る
-        </button>
+        <div class="flex justify-center mt-8">
+          <button class="btn btn-primary btn-wide btn-lg loading-spinner" 
+                  hx-get="/api/pokemon?page=${page + 1}" 
+                  hx-target="#pokemon-grid" 
+                  hx-swap="beforeend"
+                  hx-indicator="find .loading-spinner">
+            <span class="loading loading-spinner loading-md hidden"></span>
+            もっと見る (${Math.min(10, 151 - offset - maxLimit)} 匹)
+          </button>
+        </div>
       `
-        : "";
+        : `
+        <div class="flex justify-center mt-8">
+          <div class="alert alert-success max-w-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>🎉 初代ポケモン全151匹を表示完了！</span>
+          </div>
+        </div>
+      `;
 
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(pokemonCards + (page === 1 ? nextButton : ""));
