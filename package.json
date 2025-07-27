@@ -1,0 +1,26 @@
+{
+  "name": "htmx-alpine-practice",
+  "version": "1.0.0",
+  "description": "Practice project with HTMX, Alpine.js, and Tailwind CSS",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "serve": "npx http-server -p 3000",
+    "api": "node server.js",
+    "start": "npm run build && node server.js"
+  },
+  "keywords": [
+    "htmx",
+    "alpine.js",
+    "tailwind"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "daisyui": "^5.0.47",
+    "http-server": "^14.1.1",
+    "tailwindcss": "^3.4.0"
+  }
+}
